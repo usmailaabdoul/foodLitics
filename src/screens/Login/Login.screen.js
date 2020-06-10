@@ -1,9 +1,20 @@
 import React, {Component} from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
+
 import styles from './Login.style';
+import {Textinput} from '../../components';
 
 class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
   render() {
+    const {email, password} = this.state;
+
     return (
       <SafeAreaView style={styles.mainContainer}>
         <View style={styles.wrapper}>
@@ -17,6 +28,28 @@ class Login extends Component {
             <View style={styles.loginCard}>
               <Text style={styles.loginGreetingsText}>HELLO</Text>
               <Text style={styles.text}>Sign in to your account</Text>
+
+              <View>
+                <Textinput
+                  placeholder={'Email'}
+                  label={'Email'}
+                  value={email}
+                  onChangeText={(text) => this.setState({email: text})}
+                  icon={require('./../../../res/img/mail.png')}
+                />
+
+                <Textinput
+                  secureTextEntry
+                  placeholder={'Password'}
+                  label={'Password'}
+                  value={password}
+                  onChangeText={(text) => this.setState({password: text})}
+                  icon={require('./../../../res/img/hidden.png')}
+                />
+              </View>
+              <TouchableOpacity>
+                <Text style={styles.forgotPasswordText}>Forgot password?</Text>
+              </TouchableOpacity>
 
               <TouchableOpacity style={styles.buttonWrapper}>
                 <Text style={styles.buttonWrapperText}>Login</Text>
