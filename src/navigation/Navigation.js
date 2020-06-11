@@ -19,7 +19,7 @@ import {TabIcons} from './../components/index';
 import styles from './Navigation.style';
 
 import Screens from './../components/TabIcons/Screens';
-import {Home, Account, Add, Library, Login} from './../screens';
+import {Home, Account, Add, Library, Login, Register} from './../screens';
 
 let backPressed = 0;
 
@@ -67,7 +67,7 @@ class Navigation extends Component {
               hideNavBar={true}
               initial
             />
-            {/* <Scene key="register" component={Register} hideNavBar={true} /> */}
+            <Scene key="register" component={Register} hideNavBar={true} />
 
             {/* Tab Bar */}
             <Scene

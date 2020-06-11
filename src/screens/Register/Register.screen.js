@@ -2,19 +2,20 @@ import React, {Component} from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import styles from './Login.style';
+import styles from './Register.style';
 import {Textinput} from '../../components';
 
-class Login extends Component {
+class Register extends Component {
   constructor() {
     super();
     this.state = {
       email: '',
       password: '',
+      name: '',
     };
   }
   render() {
-    const {email, password} = this.state;
+    const {email, password, name} = this.state;
 
     return (
       <SafeAreaView style={styles.mainContainer}>
@@ -27,10 +28,17 @@ class Login extends Component {
 
           <View style={styles.bodyWrapper}>
             <View style={styles.loginCard}>
-              <Text style={styles.loginGreetingsText}>HELLO</Text>
-              <Text style={styles.text}>Sign in to your account</Text>
+              <Text style={styles.loginGreetingsText}>CREATE ACCOUNT</Text>
 
               <View>
+                <Textinput
+                  placeholder={'john doe'}
+                  label={'User name'}
+                  value={name}
+                  onChangeText={(text) => this.setState({name: text})}
+                  icon={require('./../../../res/img/user.png')}
+                />
+
                 <Textinput
                   placeholder={'Email'}
                   label={'Email'}
@@ -53,14 +61,14 @@ class Login extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.buttonWrapper}>
-                <Text style={styles.buttonWrapperText}>Login</Text>
+                <Text style={styles.buttonWrapperText}>Register</Text>
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity onPress={() => Actions.register()}>
+            <TouchableOpacity onPress={() => Actions.popTo('login')}>
               <Text style={styles.footerText1}>
                 Dont't have an account?{' '}
-                <Text style={styles.footerText2}>Register Now</Text>
+                <Text style={styles.footerText2}>Login</Text>
               </Text>
             </TouchableOpacity>
           </View>
@@ -70,4 +78,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Register;
