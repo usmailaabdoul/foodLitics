@@ -60,14 +60,14 @@ class Navigation extends Component {
         <Scene>
           <Stack key="root" hideNavBar>
             {/* <Scene key="splash" component={Splash} initial hideNavBar={true} /> */}
-            <Scene
+            {/* <Scene
               key="login"
               gesturesEnabled={false}
               component={Login}
               hideNavBar={true}
               initial
-            />
-            <Scene key="register" component={Register} hideNavBar={true} />
+            /> */}
+            {/* <Scene key="register" component={Register} hideNavBar={true} /> */}
 
             {/* Tab Bar */}
             <Scene
