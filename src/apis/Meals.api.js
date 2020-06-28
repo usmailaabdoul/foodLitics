@@ -1,6 +1,7 @@
 import {getApi} from '../utils/axios';
 
-const subURL = '';
+const subURL = 'recipes/';
+const apiKey = 'e90aa13b40b94b43bfa454f6f589e26e';
 
 class MealsApi {
   constructor() {
@@ -13,7 +14,7 @@ class MealsApi {
 
   async suggestedMeals() {
     try {
-      var res = await this.api.get('');
+      var res = await this.api.get(`${subURL}random?apiKey=${apiKey}&number=5`);
       return res.data;
     } catch (e) {
       throw e.response.data;

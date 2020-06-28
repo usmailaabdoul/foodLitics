@@ -6,23 +6,56 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  FlatList,
 } from 'react-native';
 
 import styles from './Home.style';
 import theme from './../../styles/theme';
 import Moment from 'react-moment';
+import deviceStorage from '../../utils/storage';
+import mealsApi from '../../apis/Meals.api';
+import {Foodcard} from '../../sections/';
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
       search: '',
+      meals: {},
+      loading: false,
+      liked: false,
     };
   }
+
+  componentDidMount() {
+    this.getMeals();
+  }
+
+  async getMeals() {
+    this.setState({loading: true});
+
+    var meals = await deviceStorage.load({
+      key: 'meals',
+      autoSync: false,
+      syncInBackground: false,
+    });
+
+    if (meals) {
+      console.log('nothing here', meals);
+      this.setState({meals, loading: false});
+    } else {
+      // var meals = await mealsApi.suggestedMeals();
+      console.log('meals', meals.recipes);
+      this.setState({meals: meals.recipes, loading: false});
+      deviceStorage.storeInfo('meals', meals.recipes);
+    }
+  }
+
   render() {
-    const {search} = this.state;
+    const {search, meals, loading} = this.state;
+    console.log(meals);
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1}}>
         <View>
           <View style={styles.headerWrapper}>
             <Text style={styles.headerText1}>
@@ -55,47 +88,16 @@ class Home extends Component {
           </View>
         </View>
 
-        <View style={styles.foodCard}>
-          <TouchableOpacity activeOpacity={0.9}>
-            <Image
-              source={require('./../../../res/img/img2.png')}
-              style={styles.image}
-            />
-            <View style={styles.likeButtonWrapper}>
-              <Image
-                source={require('./../../../res/img/love_filled.png')}
-                style={styles.likedIcon}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.5} style={styles.detailsCard}>
-            <View style={styles.detailesCardHeader}>
-              <View style={{flex: 3}}>
-                <Text style={styles.detailesCardHeaderText}>
-                  Nigerian Jollof Rice Nigerian Jollof Rice
-                </Text>
-              </View>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <Image
-                  source={require('./../../../res/img/point-to.png')}
-                  style={styles.arrowIcon}
-                />
-              </View>
-            </View>
-            <View>
-              <Text style={styles.detailsCardBodyText}>
-                It is a long established fact that a reader will be distracted
-                by the readable content ...
-              </Text>
-            </View>
-            <View style={styles.detailsCardFooter}>
-              <Text style={styles.detailsCardLink}>
-                Check reciept and callories
-              </Text>
-              <Text style={styles.detailsCardLikes}>200 likes</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+        {loading ? (
+          <Text>loading ...</Text>
+        ) : (
+          <FlatList
+            initialNumToRender={meals.length}
+            data={meals}
+            renderItem={({item, index}) => <Foodcard meal={item} />}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        )}
       </SafeAreaView>
     );
   }

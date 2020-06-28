@@ -59,76 +59,11 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  image: {
-    width: 374,
-    // height: 350,
-    borderTopRightRadius: 8,
-    borderTopLeftRadius: 8,
-  },
+
   searchIcon: {
     width: 25,
     height: 25,
     tintColor: theme.WHITE_COLOR,
-  },
-  foodCard: {
-    borderRadius: 8,
-    // alignItems: 'center',
-    backgroundColor: '#ccc',
-    marginHorizontal: 20,
-  },
-  likeButtonWrapper: {
-    position: 'absolute',
-    right: 10,
-    backgroundColor: theme.WHITE_COLOR,
-    padding: 5,
-    marginTop: 15,
-    borderRadius: 99,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  likedIcon: {
-    width: 30,
-    height: 30,
-    tintColor: theme.PRIMARY_COLOR,
-  },
-  detailsCard: {
-    marginVertical: 20,
-    marginHorizontal: 20,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 20,
-  },
-  detailesCardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  detailesCardHeaderText: {
-    textAlign: 'center',
-    fontSize: theme.FONT_SIZE_NORMAL,
-  },
-  arrowIcon: {
-    width: 25,
-    height: 20,
-    tintColor: theme.DARK_COLOR + 'ad',
-  },
-  detailsCardBodyText: {
-    color: theme.TEXT_COLOR,
-    marginBottom: 10,
-  },
-  detailsCardFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  detailsCardLink: {
-    color: theme.TEXT_COLOR,
-    fontSize: theme.FONT_SIZE_SMALL - 1,
-    textDecorationLine: 'underline',
-  },
-  detailsCardLikes: {
-    color: theme.TEXT_COLOR,
-    fontSize: theme.FONT_SIZE_SMALL - 1,
   },
 };
 
