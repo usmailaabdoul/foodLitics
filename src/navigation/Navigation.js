@@ -19,7 +19,15 @@ import {TabIcons} from './../components/index';
 import styles from './Navigation.style';
 
 import Screens from './../components/TabIcons/Screens';
-import {Home, Account, Add, Library, Login, Register} from './../screens';
+import {
+  Home,
+  Account,
+  Add,
+  Library,
+  Login,
+  Register,
+  Splash,
+} from './../screens';
 
 let backPressed = 0;
 
@@ -59,7 +67,7 @@ class Navigation extends Component {
       <Router {...sceneConfig}>
         <Scene>
           <Stack key="root" hideNavBar>
-            {/* <Scene key="splash" component={Splash} initial hideNavBar={true} /> */}
+            <Scene key="splash" component={Splash} initial hideNavBar={true} />
             {/* <Scene
               key="login"
               gesturesEnabled={false}

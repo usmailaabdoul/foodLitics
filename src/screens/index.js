@@ -4,5 +4,6 @@ import Add from './Add/Add.screens';
 import Library from './Library/Library.screens';
 import Login from './Login/Login.screen';
 import Register from './Register/Register.screen';
+import Splash from './Splash/Splash.screen';
 
-export {Home, Account, Library, Add, Login, Register};
+export {Home, Account, Library, Add, Login, Register, Splash};
