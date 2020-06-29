@@ -45,7 +45,6 @@ class Foodcard extends Component {
           <Image
             source={{
               uri: meal.image,
-              cache: 'only-if-cached',
             }}
             style={styles.image}
           />
@@ -75,8 +74,8 @@ class Foodcard extends Component {
           </View>
           <View>
             <Text style={styles.detailsCardBodyText}>
-              {this.stripOffHtmlTags(meal.instructions).substr(0, 50)}
-              {this.stripOffHtmlTags(meal.instructions).length > 50
+              {this.stripOffHtmlTags(meal.instructions).substr(0, 100)}
+              {this.stripOffHtmlTags(meal.instructions).length > 100
                 ? '...'
                 : ''}
             </Text>

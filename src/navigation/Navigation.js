@@ -27,6 +27,7 @@ import {
   Login,
   Register,
   Splash,
+  UserInfo,
 } from './../screens';
 
 let backPressed = 0;
@@ -68,14 +69,14 @@ class Navigation extends Component {
         <Scene>
           <Stack key="root" hideNavBar>
             <Scene key="splash" component={Splash} initial hideNavBar={true} />
-            {/* <Scene
+            <Scene
               key="login"
               gesturesEnabled={false}
               component={Login}
               hideNavBar={true}
-              initial
-            /> */}
-            {/* <Scene key="register" component={Register} hideNavBar={true} /> */}
+            />
+            <Scene key="register" component={Register} hideNavBar={true} />
+            <Scene key="userInfo" component={UserInfo} hideNavBar={true} />
 
             {/* Tab Bar */}
             <Scene
@@ -90,17 +91,18 @@ class Navigation extends Component {
                 tabBarStyle={styles.tabBar}
                 tabBarPosition="bottom">
                 <Scene
-                  key="add"
-                  icon={TabIcons}
-                  component={Add}
-                  title={Screens.ADD}
-                  hideNavBar={true}
-                />
-                <Scene
                   key="home"
                   icon={TabIcons}
                   component={Home}
                   title={Screens.HOME}
+                  hideNavBar={true}
+                />
+
+                <Scene
+                  key="add"
+                  icon={TabIcons}
+                  component={Add}
+                  title={Screens.ADD}
                   hideNavBar={true}
                 />
 

@@ -4,11 +4,9 @@ import theme from './../../styles/theme';
 const styles = {
   container: {
     flex: 1,
+    justifyContent: 'center',
+    // alignItems: 'center',
   },
-  bodyWrapper: {
-    marginTop: 20,
-  },
-
   card: {
     backgroundColor: theme.WHITE_COLOR,
     shadowColor: '#b9b9b9',
@@ -17,8 +15,7 @@ const styles = {
     elevation: 3,
     position: 'relative',
     marginHorizontal: 20,
-    paddingVertical: 20,
-    paddingBottom: 60,
+    paddingVertical: 60,
     justifyContent: 'center',
     alignItems: 'center',
   },

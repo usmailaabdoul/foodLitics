@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
-import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import auth from '@react-native-firebase/auth';
 
 import styles from './Register.style';
 import {Textinput} from '../../components';
+import theme from './../../styles/theme';
 
 class Register extends Component {
   constructor() {
@@ -11,11 +20,51 @@ class Register extends Component {
     this.state = {
       email: '',
       password: '',
-      name: '',
+      loading: false,
     };
   }
+
+  async handleRegister() {
+    const {email, password} = this.state;
+    this.setState({loading: true});
+
+    try {
+      await auth().createUserWithEmailAndPassword(email, password);
+
+      this.setState({loading: false});
+      Alert.alert(
+        'Success',
+        'You have Registered successfully',
+        [
+          {},
+          {
+            text: 'ok',
+            onPress: () => Actions.userInfo(),
+          },
+        ],
+        {cancelable: false},
+      );
+    } catch (e) {
+      var errorCode = e.code;
+      if (errorCode === 'auth/wrong-password') {
+        alert('the  Password To This Email Is Invalid');
+      } else if (errorCode === 'auth/user-disabled') {
+        alert('the Email Has Been Disabled');
+      } else if (errorCode === 'auth/user-not-found') {
+        alert('there Is No User Correspomding To This Email');
+      } else if (errorCode === 'auth/invalid-email') {
+        alert('the Email Address Is Not Valid');
+      } else {
+        console.log(e);
+        alert('something Unexpected Happend');
+      }
+      this.setState({loading: false});
+      return;
+    }
+  }
+
   render() {
-    const {email, password, name} = this.state;
+    const {email, password} = this.state;
 
     return (
       <SafeAreaView style={styles.mainContainer}>
@@ -31,14 +80,6 @@ class Register extends Component {
               <Text style={styles.loginGreetingsText}>CREATE ACCOUNT</Text>
 
               <View>
-                <Textinput
-                  placeholder={'john doe'}
-                  label={'User name'}
-                  value={name}
-                  onChangeText={(text) => this.setState({name: text})}
-                  icon={require('./../../../res/img/user.png')}
-                />
-
                 <Textinput
                   placeholder={'Email'}
                   label={'Email'}
@@ -60,9 +101,17 @@ class Register extends Component {
                 <Text style={styles.forgotPasswordText}>Forgot password?</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.buttonWrapper}>
-                <Text style={styles.buttonWrapperText}>Register</Text>
-              </TouchableOpacity>
+              {this.state.loading ? (
+                <TouchableOpacity style={styles.buttonWrapper}>
+                  <ActivityIndicator size={25} color={theme.WHITE_COLOR} />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => this.handleRegister()}
+                  style={styles.buttonWrapper}>
+                  <Text style={styles.buttonWrapperText}>Register</Text>
+                </TouchableOpacity>
+              )}
             </View>
 
             <TouchableOpacity onPress={() => Actions.popTo('login')}>

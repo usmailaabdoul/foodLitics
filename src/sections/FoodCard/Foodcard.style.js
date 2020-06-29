@@ -12,7 +12,7 @@ const styles = {
     // alignItems: 'center',
     backgroundColor: '#ccc',
     marginHorizontal: 20,
-    marginVertical: 10,
+    marginTop: 10,
     alignItems: 'center',
   },
   likeButtonWrapper: {
@@ -35,7 +35,7 @@ const styles = {
     height: 30,
   },
   detailsCard: {
-    backgroundColor: '#ffffffaf',
+    backgroundColor: '#ffffffcf',
     borderRadius: 8,
     padding: 15,
     marginHorizontal: 20,
@@ -65,6 +65,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 5,
   },
   detailsCardLink: {
     color: theme.TEXT_COLOR,

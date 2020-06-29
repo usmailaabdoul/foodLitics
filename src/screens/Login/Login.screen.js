@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
-import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import auth from '@react-native-firebase/auth';
 
 import styles from './Login.style';
 import {Textinput} from '../../components';
+import theme from './../../styles/theme';
 
 class Login extends Component {
   constructor() {
@@ -11,8 +20,49 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
+      loading: false,
     };
   }
+
+  async handleLogin() {
+    const {email, password} = this.state;
+    this.setState({loading: true});
+
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+
+      this.setState({loading: false});
+      Alert.alert(
+        'Success',
+        'You have log in successfully',
+        [
+          {},
+          {
+            text: 'ok',
+            onPress: () => Actions.home(),
+          },
+        ],
+        {cancelable: false},
+      );
+    } catch (e) {
+      var errorCode = e.code;
+      if (errorCode === 'auth/wrong-password') {
+        alert('the  Password To This Email Is Invalid');
+      } else if (errorCode === 'auth/user-disabled') {
+        alert('the Email Has Been Disabled');
+      } else if (errorCode === 'auth/user-not-found') {
+        alert('there Is No User Correspomding To This Email');
+      } else if (errorCode === 'auth/invalid-email') {
+        alert('the Email Address Is Not Valid');
+      } else {
+        console.log(e);
+        alert('something Unexpected Happend');
+      }
+      this.setState({loading: false});
+      return;
+    }
+  }
+
   render() {
     const {email, password} = this.state;
 
@@ -52,9 +102,17 @@ class Login extends Component {
                 <Text style={styles.forgotPasswordText}>Forgot password?</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.buttonWrapper}>
-                <Text style={styles.buttonWrapperText}>Login</Text>
-              </TouchableOpacity>
+              {this.state.loading ? (
+                <TouchableOpacity style={styles.buttonWrapper}>
+                  <ActivityIndicator size={25} color={theme.WHITE_COLOR} />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => this.handleLogin()}
+                  style={styles.buttonWrapper}>
+                  <Text style={styles.buttonWrapperText}>Login</Text>
+                </TouchableOpacity>
+              )}
             </View>
 
             <TouchableOpacity onPress={() => Actions.register()}>

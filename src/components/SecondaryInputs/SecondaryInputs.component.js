@@ -14,6 +14,7 @@ class SecondaryInputs extends Component {
       keyboardType,
       label,
       icon,
+      editable,
     } = this.props;
 
     return (
@@ -35,6 +36,7 @@ class SecondaryInputs extends Component {
               onChangeText={onChangeText}
               autoCapitalize="none"
               keyboardType={keyboardType}
+              editable={editable}
             />
           </View>
         </View>

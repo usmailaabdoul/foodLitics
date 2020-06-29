@@ -12,7 +12,7 @@ class Splash extends Component {
 
   async componentDidMount() {
     this.timerHandle = setTimeout(async () => {
-      Actions.add();
+      Actions.login();
     }, 1000);
   }
 

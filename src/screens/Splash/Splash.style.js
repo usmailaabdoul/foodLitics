@@ -5,7 +5,6 @@ const styles = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
     backgroundColor: '#cccccc90',
   },
   headerText1: {
