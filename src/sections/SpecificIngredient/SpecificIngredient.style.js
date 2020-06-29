@@ -1,13 +1,40 @@
-import {Platform} from 'react-native';
-import theme from './../../styles/theme';
+import theme from '../../styles/theme';
 
 const styles = {
-  mainContainer: {
-    flex: 1,
-    // backgroundColor: theme.WHITE_COLOR,
+  modal: {
+    // justifyContent: 'flex-end',
+    margin: 0,
+    marginHorizontal: 15,
+    // flex: 1,
   },
+  container: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    maxHeight: '90%',
+    paddingBottom: 10,
+    // flex: 1,
+  },
+  closeButtonWrapper: {
+    padding: 5,
+    paddingVertical: 10,
+    backgroundColor: '#cccccc40',
+    borderTopRightRadius: 8,
+    borderTopLeftRadius: 8,
+  },
+  closeButton: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    alignSelf: 'flex-start',
+    justifyContent: 'center',
+  },
+  closeButtonImage: {
+    width: 50,
+    height: 30,
+    tintColor: theme.RED_ERROR_COLOR,
+  },
+
   bodyWrapper: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -16,7 +43,7 @@ const styles = {
     color: theme.DARK_COLOR,
   },
   search: {
-    height: 150,
+    height: 90,
     width: '100%',
     paddingLeft: 15,
     fontSize: 16,
@@ -45,32 +72,6 @@ const styles = {
     color: theme.WHITE_COLOR,
     fontSize: theme.FONT_SIZE_MEDIUM,
     fontWeight: theme.FONT_WEIGHT_MEDIUM,
-  },
-  headerText: {
-    fontSize: theme.FONT_SIZE_MEDIUM,
-    color: theme.TEXT_COLOR,
-    textAlign: 'center',
-    paddingVertical: 15,
-  },
-  mainCard: {
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-    flex: 1,
-    marginHorizontal: 10,
-    marginVertical: 3,
-    borderRadius: 5,
-    shadowColor: '#f9f9f9',
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.3,
-    elevation: 2,
-    position: 'relative',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  titleText: {
-    fontSize: theme.FONT_SIZE_MEDIUM,
-    fontWeight: theme.FONT_WEIGHT_MEDIUM,
-    color: theme.WHITE_COLOR,
   },
 };
 

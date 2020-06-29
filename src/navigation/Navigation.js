@@ -90,18 +90,17 @@ class Navigation extends Component {
                 tabBarStyle={styles.tabBar}
                 tabBarPosition="bottom">
                 <Scene
-                  key="home"
-                  icon={TabIcons}
-                  component={Home}
-                  title={Screens.HOME}
-                  hideNavBar={true}
-                />
-
-                <Scene
                   key="add"
                   icon={TabIcons}
                   component={Add}
                   title={Screens.ADD}
+                  hideNavBar={true}
+                />
+                <Scene
+                  key="home"
+                  icon={TabIcons}
+                  component={Home}
+                  title={Screens.HOME}
                   hideNavBar={true}
                 />
 
