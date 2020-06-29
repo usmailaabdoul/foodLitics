@@ -10,6 +10,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import ImagePicker from 'react-native-image-crop-picker';
+import {Actions} from 'react-native-router-flux';
 
 import styles from './Account.style';
 import {Header, SecondaryInputs} from './../../components';
@@ -141,6 +142,18 @@ class Account extends Component {
     }
   }
 
+  async signout() {
+    const {I18n} = this.props;
+    try {
+      await auth().signOut();
+      alert('signed Out Successfully');
+      Actions.login();
+    } catch (e) {
+      console.log(e);
+      alert(e);
+    }
+  }
+
   render() {
     const {email, password, userName, profileImageURL} = this.state;
     return (
@@ -197,9 +210,9 @@ class Account extends Component {
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
-                onPress={() => this.handleSave()}
+                onPress={() => this.signout()}
                 style={styles.saveButton}>
-                <Text style={styles.saveButtonText}>Save</Text>
+                <Text style={styles.saveButtonText}>sign out</Text>
               </TouchableOpacity>
             )}
           </View>

@@ -55,7 +55,8 @@ const styles = {
   mainCard: {
     paddingVertical: 20,
     paddingHorizontal: 10,
-    flex: 1,
+    // flex: 1,
+    width: '45%',
     marginHorizontal: 10,
     marginVertical: 3,
     borderRadius: 5,

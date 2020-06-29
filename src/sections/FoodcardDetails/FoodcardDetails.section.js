@@ -15,6 +15,7 @@ class FoodcardDetails extends Component {
   componentDidMount() {}
 
   closeModal = () => {
+    this.setState({stage: 1});
     this.props.toggleDetailsModal(false);
   };
 
