@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
 import styles from './Detect.style';
@@ -38,11 +39,11 @@ class Detect extends Component {
 
     try {
       var res = await foodApi.detectIngredients(search);
-      console.log(res);
+      console.log(res.annotations);
       this.setState({
-        // results: res.results,
+        results: res.annotations,
         loading: false,
-        // stage: 2,
+        stage: 2,
         search: '',
       });
     } catch (e) {
@@ -55,6 +56,11 @@ class Detect extends Component {
   render() {
     const {showModal} = this.props;
     const {search, loading, stage, results} = this.state;
+    // console.log(results);
+    results.map((res) => {
+      res.id = Math.random() * 10;
+    });
+    console.log(results);
 
     return (
       <View>
@@ -78,7 +84,9 @@ class Detect extends Component {
 
             {stage === 1 ? (
               <View style={styles.bodyWrapper}>
-                <Text style={styles.bodyText}>Enter text to be detected</Text>
+                <Text style={styles.bodyText}>
+                  Detect ingredients and dishes in texts.
+                </Text>
 
                 <View style={styles.searchWrapper}>
                   <TextInput
@@ -95,7 +103,7 @@ class Detect extends Component {
 
                 {loading ? (
                   <TouchableOpacity style={styles.buttonWrapper}>
-                    <Text style={styles.buttonWrapperText}>loading ...</Text>
+                    <ActivityIndicator size={25} color={theme.WHITE_COLOR} />
                   </TouchableOpacity>
                 ) : (
                   <TouchableOpacity
@@ -130,11 +138,11 @@ const ResultCard = (props) => {
   const {res} = props;
   return (
     <View style={styles.resultCard}>
-      <Text style={styles.resTitle}>{res.title}</Text>
-      <Text style={styles.resTime}>
-        Time to prepare meal: {res.readyInMinutes} minutes
-      </Text>
-      <Text style={styles.resLink}>check recipe at {res.sourceUrl}</Text>
+      <Text style={styles.resTitle}>{res.annotation}</Text>
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <Image source={{uri: res.image}} style={{width: 150, height: 150}} />
+      </View>
+      <Text style={styles.resLink}>tag: {res.tag}</Text>
     </View>
   );
 };

@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import Modal from 'react-native-modal';
-import {View, TouchableOpacity, Image, Text} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 
 import styles from './RandomJock.style';
 import theme from '../../styles/theme';
@@ -73,7 +79,7 @@ class RandomJock extends Component {
 
                 {loading ? (
                   <TouchableOpacity style={styles.buttonWrapper}>
-                    <Text style={styles.buttonWrapperText}>loading ...</Text>
+                    <ActivityIndicator size={25} color={theme.WHITE_COLOR} />
                   </TouchableOpacity>
                 ) : (
                   <TouchableOpacity

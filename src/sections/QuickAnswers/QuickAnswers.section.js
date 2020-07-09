@@ -6,7 +6,7 @@ import {
   Image,
   Text,
   TextInput,
-  FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
 import styles from './QuickAnswers.style';
@@ -82,7 +82,7 @@ class QuickAnswers extends Component {
                   <View style={styles.searchWrapper}>
                     <TextInput
                       selectTextOnFocus
-                      placeholder="enter question"
+                      placeholder="enter question: 'How much vitamin c is in 2 apples?'"
                       multiline
                       placeholderTextColor={theme.Text_PRIMARY_COLOR + 90}
                       autoCorrect={false} // to stop auto correction on email field
@@ -94,7 +94,7 @@ class QuickAnswers extends Component {
 
                   {loading ? (
                     <TouchableOpacity style={styles.buttonWrapper}>
-                      <Text style={styles.buttonWrapperText}>loading ...</Text>
+                      <ActivityIndicator size={25} color={theme.WHITE_COLOR} />
                     </TouchableOpacity>
                   ) : (
                     <TouchableOpacity

@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import Modal from 'react-native-modal';
-import {View, TouchableOpacity, Image, Text, TextInput} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  Text,
+  TextInput,
+  ActivityIndicator,
+} from 'react-native';
 
 import styles from './Chat.style';
 import theme from '../../styles/theme';
@@ -14,7 +21,8 @@ class Chat extends Component {
       text: '',
       loading: false,
       stage: 1,
-      results: [],
+      answerText: '',
+      media: null,
     };
   }
 
@@ -31,9 +39,10 @@ class Chat extends Component {
 
     try {
       var res = await foodApi.chat(text);
-
+      console.log(res);
       this.setState({
-        results: res.results,
+        answerText: res.answerText,
+        media: res.media,
         loading: false,
         stage: 2,
         text: '',
@@ -47,7 +56,7 @@ class Chat extends Component {
 
   render() {
     const {showModal} = this.props;
-    const {text, loading, stage, results} = this.state;
+    const {text, loading, stage, answerText, media} = this.state;
 
     return (
       <View>
@@ -88,7 +97,7 @@ class Chat extends Component {
 
                 {loading ? (
                   <TouchableOpacity style={styles.buttonWrapper}>
-                    <Text style={styles.buttonWrapperText}>loading ...</Text>
+                    <ActivityIndicator size={25} color={theme.WHITE_COLOR} />
                   </TouchableOpacity>
                 ) : (
                   <TouchableOpacity
@@ -102,7 +111,14 @@ class Chat extends Component {
 
             {stage === 2 ? (
               <View style={styles.resultCard}>
-                <Text style={styles.resTime}>{results.text}</Text>
+                <Text style={styles.resTime}>{answerText}</Text>
+                <View>
+                  {media === null ? (
+                    <Text>no media available</Text>
+                  ) : (
+                    <View>{media}</View>
+                  )}
+                </View>
               </View>
             ) : null}
           </View>

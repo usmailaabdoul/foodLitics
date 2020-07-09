@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
 import styles from './Home.style';
@@ -24,7 +25,10 @@ class Home extends Component {
       meals: {},
       loading: false,
       liked: false,
+      refreshing: false,
     };
+
+    this.arrayholder = [];
   }
 
   componentDidMount() {
@@ -34,26 +38,46 @@ class Home extends Component {
   async getMeals() {
     this.setState({loading: true});
 
-    var meals = await deviceStorage.load({
-      key: 'meals',
-      autoSync: false,
-      syncInBackground: false,
-    });
-
-    if (meals) {
-      console.log('nothing here', meals);
-      this.setState({meals, loading: false});
-    } else {
-      // var meals = await mealsApi.suggestedMeals();
-      console.log('meals', meals.recipes);
-      this.setState({meals: meals.recipes, loading: false});
-      deviceStorage.storeInfo('meals', meals.recipes);
-    }
+    var meals = await mealsApi.suggestedMeals();
+    console.log('meals', meals.recipes);
+    this.setState({meals: meals.recipes, loading: false});
+    this.arrayholder = meals.recipes;
   }
 
+  async handleRefresh() {
+    this.setState({
+      refreshing: true,
+    });
+
+    try {
+      var meals = await mealsApi.suggestedMeals();
+      this.setState({meals: meals.recipes, refreshing: false});
+    } catch (e) {
+      alert('Unable to get meaks');
+      console.log(e);
+    }
+    this.setState({
+      refreshing: false,
+    });
+  }
+
+  searchMeals(text) {
+    this.setState({search: text});
+
+    const newMeals = this.arrayholder.filter((item) => {
+      const itemData = `${item.title.toLowerCase()}`;
+      const textData = text.toLowerCase();
+
+      return itemData.indexOf(textData) > -1;
+    });
+
+    this.setState({
+      meals: newMeals,
+    });
+  }
   render() {
-    const {search, meals, loading} = this.state;
-    console.log(meals);
+    const {search, meals, loading, refreshing} = this.state;
+    
     return (
       <SafeAreaView style={{flex: 1}}>
         <View>
@@ -77,7 +101,10 @@ class Home extends Component {
               autoCorrect={false} // to stop auto correction on email field
               style={styles.search}
               value={search}
-              onChangeText={(text) => this.setState({search: text})}
+              onChangeText={(text) => {
+                this.setState({search: text});
+                this.searchMeals(text);
+              }}
             />
             <TouchableOpacity style={styles.searchButtonWrapper}>
               <Image
@@ -89,13 +116,18 @@ class Home extends Component {
         </View>
 
         {loading ? (
-          <Text>loading ...</Text>
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <ActivityIndicator size={25} color={theme.PRIMARY_COLOR} />
+          </View>
         ) : (
           <FlatList
             initialNumToRender={meals.length}
             data={meals}
             renderItem={({item, index}) => <Foodcard meal={item} />}
             keyExtractor={(item) => item.id.toString()}
+            onRefresh={() => this.handleRefresh()}
+            refreshing={refreshing}
           />
         )}
       </SafeAreaView>

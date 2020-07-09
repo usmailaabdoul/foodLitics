@@ -14,7 +14,9 @@ class MealsApi {
 
   async suggestedMeals() {
     try {
-      var res = await this.api.get(`${subURL}random?apiKey=${apiKey}&number=5`);
+      var res = await this.api.get(
+        `${subURL}random?apiKey=${apiKey}&number=15`,
+      );
       return res.data;
     } catch (e) {
       throw e.response.data;

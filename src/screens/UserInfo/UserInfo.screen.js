@@ -80,7 +80,7 @@ class UserInfo extends Component {
 
       return true;
     } catch (e) {
-      alert(I18n.t('phrases.ErrorUpdatingProfile'));
+      alert('Error Updating Profile');
       console.log(e);
       throw e;
     }
@@ -109,7 +109,7 @@ class UserInfo extends Component {
       this.setState({photoURL: photoURL});
       Alert.alert(
         'Update Profile',
-        'yourProfileHasBeenUpdated',
+        'your Profile Has Been Updated',
         [
           {
             text: 'OK',

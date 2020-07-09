@@ -1,9 +1,17 @@
 import React, {Component} from 'react';
 import Modal from 'react-native-modal';
-import {View, TouchableOpacity, Image, Text, FlatList} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  Text,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 
 import styles from './GenerateMeal.style';
 import mealsApi from '../../apis/Meals.api';
+import theme from '../../styles/theme';
 
 class GenerateMeal extends Component {
   constructor(props) {
@@ -71,7 +79,7 @@ class GenerateMeal extends Component {
 
                   {loading ? (
                     <TouchableOpacity style={styles.buttonWrapper}>
-                      <Text style={styles.buttonWrapperText}>loading ...</Text>
+                      <ActivityIndicator size={25} color={theme.WHITE_COLOR} />
                     </TouchableOpacity>
                   ) : (
                     <TouchableOpacity
@@ -85,7 +93,12 @@ class GenerateMeal extends Component {
 
               {stage === 2 ? (
                 <View>
-                  <View style={{flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 20}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      flexWrap: 'wrap',
+                      marginHorizontal: 20,
+                    }}>
                     <Text style={styles.nutrients}>
                       Calories: {nutrients.calories},
                     </Text>

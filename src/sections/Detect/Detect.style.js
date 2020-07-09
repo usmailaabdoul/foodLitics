@@ -37,6 +37,7 @@ const styles = {
     // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 10,
   },
   bodyText: {
     fontSize: theme.FONT_SIZE_MEDIUM,
@@ -98,8 +99,7 @@ const styles = {
     paddingVertical: 5,
   },
   resLink: {
-    fontSize: theme.FONT_SIZE_SMALL,
-    textDecorationLine: 'underline',
+    fontSize: theme.FONT_SIZE_MEDIUM,
   },
 };
 
